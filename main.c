@@ -53,6 +53,7 @@ int	main(int argc, char **argv)
 		close (1);
 		// open out_file, it's fd becomes the new stdout
 		open (argv[3], O_RDONLY);
+		execve()
 	}
 	waitpid (id_f1);
 	waitpid (id_f2);

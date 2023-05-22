@@ -1,36 +1,18 @@
-#include "ft_printf.h"
-#include <fcntl.h>
 #include "libft.h"
+#include "ft_printf.h"
 
-int	main(int argc, char **argv)
+int main(void)
 {
-	char **ptr;
-	int i;
+    char cmd[] = "/usr/bin/ls";
+    char *argVec[] = {"mamamia", "-a", "-1", NULL};
+    char *envVec[] = {NULL};
 
-	i = 1;
-	if(argc < 3)
-		return (0);
-	ptr = ft_split(argv[2], 32);
-	ft_printf("cmd: %s\n", ptr[0]);
-	while (ptr[i])
-	{
-		ft_printf("args: %s\n", ptr[i]);
-		i++;
-	}
-
-	char *path;
-
-	path = ft_strjoin("/usr/bin/", ptr[0]);
-	ft_printf("\npath: %s\n", path);
-	i = 0;
-	//free split array and each word
-	while (ptr[i])
-	{
-		free (ptr[i]);
-		i++;
-	}
-	free (ptr);
-	free(path);
-	return (0);
+    printf("Start of execve call %s:\n", cmd);
+    printf("===================\n");
+    if (execve(cmd, argVec, envVec) == -1)
+    {
+        perror("Could not execute execve:");
+    }
+    printf("Oops something went wrong!\n");
+    return (0);
 }
-

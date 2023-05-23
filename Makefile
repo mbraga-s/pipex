@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/18 19:09:31 by mbraga-s          #+#    #+#              #
-#    Updated: 2023/05/18 19:09:31 by mbraga-s         ###   ########.fr        #
+#    Created: 2023/05/23 16:29:01 by mbraga-s          #+#    #+#              #
+#    Updated: 2023/05/23 16:29:01 by mbraga-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,10 @@ RM = rm -fr
 all: $(NAME)
 
 $(NAME): lib
-		$(CC) $(CFLAGS) $(LIB) $(OLIB) -o $(NAME)
+		$(CC) $(CFLAGS) $(LIB) $(OLIB:=.a) -o $(NAME)
 
 lib: $(SRCS:=.o)
-		ar rc $(LIB).a $(SRCS:=.o)
+		ar rc $(LIB) $(SRCS:=.o)
 
 clean:
 	$(RM)	$(SRCS:=.o)

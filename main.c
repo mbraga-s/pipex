@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 17:32:23 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/05/16 17:32:23 by mbraga-s         ###   ########.fr       */
+/*   Created: 2023/05/23 16:27:13 by mbraga-s          #+#    #+#             */
+/*   Updated: 2023/05/23 16:27:13 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int	main(int argc, char **argv)
 		// open in_file, it's fd becomes the new stdin
 		open (argv[1], O_RDONLY);
 		// closes stdout and dups the write fd of the pipe to it
-		//dup2 (fd[1], 1);
-		close (1);
-		dup (fd[1]);
+		dup2 (fd[1], 1);
+		//close (1);
+		//dup (fd[1]);
 		// execute cmd1 on in_file
 		execve(connect(stuff(argv, 2)), stuff(argv, 2), NULL);
 	}
@@ -59,9 +59,9 @@ int	main(int argc, char **argv)
 	{
 		close(fd[1]);
 		// closes stdin and dups the read fd of the pipe to it
-		//dup2 (fd[0], 0);
-		close (0);
-		dup (fd[0]);
+		dup2 (fd[0], 0);
+		//close (0);
+		//dup (fd[0]);
 		// close stdout fd
 		close (1);
 		// open out_file, it's fd becomes the new stdout

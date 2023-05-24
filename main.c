@@ -16,20 +16,33 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-
 char	**stuff(char **argv, int l);
 char	*connect(char **ptr);
 
-int	main(int argc, char **argv)
+void	cleaner(char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+	{
+		free (argv[i]);
+		i++;
+	}
+	free (argv);
+}
+
+int	main(int argc, char **argv, char **envp)
 {
 	int	fd[2];
 	int	id_f1;
 	int	id_f2;
 
 	// make sure arguments passed are okay
- 	if (argc != 5)
+	if (argc != 5)
 	{
 		ft_printf("Wrong number of arguments.\n");
+		cleaner (argv);
 		return (0);
 	}
 	// create pipe
@@ -76,7 +89,7 @@ int	main(int argc, char **argv)
 
 char	**stuff(char **argv, int l)
 {
-	char **ptr;
+	char	**ptr;
 
 	ptr = ft_split(argv[l], 32);
 	return (ptr);
@@ -84,7 +97,7 @@ char	**stuff(char **argv, int l)
 
 char	*connect(char **ptr)
 {
-	char *path;
+	char	*path;
 
 	path = ft_strjoin("/usr/bin/", ptr[0]);
 	return (path);

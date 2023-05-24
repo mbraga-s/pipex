@@ -12,7 +12,7 @@
 
 NAME = pipex
 
-SRCS = main
+SRCS = main ./libft/ft_split ./libft/ft_strncmp ./libft/ft_strjoin
 
 LIB = $(NAME).a
 

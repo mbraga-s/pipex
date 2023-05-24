@@ -1,11 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/24 18:22:07 by mbraga-s          #+#    #+#             */
+/*   Updated: 2023/05/24 18:22:07 by mbraga-s         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 #include <fcntl.h>
 #include "libft.h"
 
+int	parsing(char **argv)
+{
+	if (access(argv[1], F_OK) < 0 || access(argv[4], F_OK) < 0)
+	{
+		cleaner(argv);
+		exit(0);
+	}
+	
+}
+
+void	cleaner(char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+	{
+		free (argv[i]);
+		i++;
+	}
+	free (argv);
+}
+
 char	*stuff(char **argv)
 {
-	char **ptr;
-	int i;
+	char	**ptr;
+	int		i;
+	char	*path;
 
 	i = 1;
 	ptr = ft_split(argv[2], 32);
@@ -15,9 +51,6 @@ char	*stuff(char **argv)
 		ft_printf("args: %s\n", ptr[i]);
 		i++;
 	}
-
-	char *path;
-
 	path = ft_strjoin("/usr/bin/", ptr[0]);
 	ft_printf("\npath: %s\n", path);
 	i = 0;
@@ -31,4 +64,3 @@ char	*stuff(char **argv)
 	free(path);
 	return (0);
 }
-

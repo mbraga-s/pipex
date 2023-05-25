@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 15:51:55 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/05/25 17:37:31 by mbraga-s         ###   ########.fr       */
+/*   Created: 2022/11/04 18:05:31 by mbraga-s          #+#    #+#             */
+/*   Updated: 2023/05/25 17:39:04 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-size_t	ft_strlen(const char *str)
+char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
-	size_t	i;
+	char	*ptr;
+	char	*ptr1;
 
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
+	if (start >= ft_strlen(s))
+	{
+		ptr = (char *)malloc(1);
+		ptr[0] = '\0';
+		return (ptr);
+	}
+	if (len > (ft_strlen(s) - start))
+		len = ft_strlen(s) - start;
+	ptr = (char *)malloc(len + 1);
+	if (!ptr)
+		return (NULL);
+	ptr1 = &((char *)s)[start];
+	ft_strlcpy(ptr, ptr1, len + 1);
+	return (ptr);
 }

@@ -6,11 +6,11 @@
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:50:46 by mbraga-s          #+#    #+#             */
-/*   Updated: 2022/11/07 14:50:46 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:36:24 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../pipex.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

@@ -10,14 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "libft.h"
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/wait.h>
+#include "pipex.h"
 
 char	**stuff(char **argv, int l);
-char	*connect(char **ptr);
+char	*connect(char **ptr, char **envp);
 
 void	cleaner(char **argv)
 {
@@ -41,14 +37,14 @@ int	main(int argc, char **argv, char **envp)
 	// make sure arguments passed are okay
 	if (argc != 5)
 	{
-		ft_printf("Wrong number of arguments.\n");
+		printf("Wrong number of arguments.\n");
 		cleaner (argv);
 		return (0);
 	}
 	// create pipe
 	if (pipe(fd) == -1)
 	{
-		ft_printf("Error opening pipe.\n");
+		printf("Error opening pipe.\n");
 		return (0);
 	}
 	id_f1 = fork();
@@ -64,7 +60,7 @@ int	main(int argc, char **argv, char **envp)
 		//close (1);
 		//dup (fd[1]);
 		// execute cmd1 on in_file
-		execve(connect(stuff(argv, 2)), stuff(argv, 2), NULL);
+		execve(connect(stuff(argv, 2), envp), stuff(argv, 2), NULL);
 	}
 //	wait(0);
 	id_f2 = fork();
@@ -80,7 +76,7 @@ int	main(int argc, char **argv, char **envp)
 		// open out_file, it's fd becomes the new stdout
 		open (argv[4], O_WRONLY);
 		// execute cmd2 on in_file
-		execve(connect(stuff(argv, 3)), stuff(argv, 3), NULL);
+		execve(connect(stuff(argv, 3), envp), stuff(argv, 3), NULL);
 		exit(0);
 	}
 	exit (0);
@@ -95,10 +91,24 @@ char	**stuff(char **argv, int l)
 	return (ptr);
 }
 
-char	*connect(char **ptr)
+char	*connect(char **ptr, char **envp)
 {
 	char	*path;
+	char	*env;
+	int i;
 
-	path = ft_strjoin("/usr/bin/", ptr[0]);
+	i = 0;
+	while (envp[i])
+	{
+		if (!ft_strncmp("PATH=", envp[i],5))
+		{
+			env = envp[i];
+			break ;
+		}
+		i++;
+	}
+	//path = ft_strjoin("/usr/bin/", ptr[0]);
+	path = ft_strjoin((env + 5), ptr[0]);
+	printf("%s", path);
 	return (path);
 }

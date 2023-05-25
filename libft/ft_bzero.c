@@ -1,23 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 15:51:55 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/05/25 17:37:31 by mbraga-s         ###   ########.fr       */
+/*   Created: 2022/10/24 16:01:20 by mbraga-s          #+#    #+#             */
+/*   Updated: 2023/05/25 17:39:36 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-size_t	ft_strlen(const char *str)
+void	ft_bzero(void *s, size_t n)
 {
-	size_t	i;
+	char	*ptr;
+	int		i;
 
+	ptr = s;
 	i = 0;
-	while (str[i] != '\0')
+	while (n > 0)
+	{
+		ptr[i] = '\0';
 		i++;
-	return (i);
+		n--;
+	}
 }
+
+/*int	main(void)
+{
+	char a[5] = "Hello";
+
+	printf("%s", a);
+	ft_bzero(a, 5);
+	printf("%s", a);
+}
+*/

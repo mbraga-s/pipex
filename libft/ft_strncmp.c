@@ -6,11 +6,11 @@
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:51:40 by mbraga-s          #+#    #+#             */
-/*   Updated: 2022/11/03 14:40:25 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:48:33 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../pipex.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

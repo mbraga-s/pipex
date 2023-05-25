@@ -6,11 +6,11 @@
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:34:57 by mbraga-s          #+#    #+#             */
-/*   Updated: 2022/11/10 10:29:40 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:37:27 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../pipex.h"
 
 int	ft_wcount(char const *s, char c)
 {

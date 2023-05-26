@@ -6,7 +6,7 @@
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:00:50 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/05/26 16:03:56 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:33:44 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_unsputnbr(unsigned int n, int *len);
 
 void	ft_upperputnbrhex(unsigned int c, int *len);
 
-char	**split(char **argv, int l);
+char	**args(char **argv, int l);
 
 char	*path(char *arg, char **envp);
 

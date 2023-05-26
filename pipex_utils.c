@@ -6,7 +6,7 @@
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:00:10 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/05/26 16:02:44 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:33:33 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@
 	}
 	
 } */
+
+char	**args(char **argv, int l)
+{
+	char	**ptr;
+
+	ptr = ft_split(argv[l], 32);
+	return (ptr);
+}
+
 
 char	*path(char *arg, char **envp)
 {

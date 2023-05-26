@@ -32,6 +32,8 @@ int	main(int argc, char **argv, char **envp)
 	int		id_f2;
 	char	*pcmd1;
 	char	*pcmd2;
+	char	**args1;
+	char	**args2;	
 
 	// make sure arguments passed are okay
 	if (argc != 5)
@@ -40,8 +42,10 @@ int	main(int argc, char **argv, char **envp)
 	//	cleaner (argv);
 		return (0);
 	}
-	pcmd1 = path(argv[2], envp);
-	pcmd2 = path(argv[3], envp);
+	args1 = args(argv, 2);
+	args2 = args(argv, 3);
+	pcmd1 = path(args1[0], envp);
+	pcmd2 = path(args2[0], envp);
 	// create pipe
 	if (pipe(fd) == -1)
 	{
@@ -59,7 +63,7 @@ int	main(int argc, char **argv, char **envp)
 		// closes stdout and dups the write fd of the pipe to it
 		dup2 (fd[1], 1);
 		// execute cmd1 on in_file
-		execve(pcmd1, split(argv, 2), NULL);
+		execve(pcmd1, args1, envp);
 	}
 //	wait(0);
 	id_f2 = fork();
@@ -73,16 +77,8 @@ int	main(int argc, char **argv, char **envp)
 		// open out_file, it's fd becomes the new stdout
 		open (argv[4], O_WRONLY);
 		// execute cmd2 on in_file
-		execve(pcmd2, split(argv, 3), NULL);
+		execve(pcmd2, args2, envp);
 		exit(0);
 	}
 	return (0);
-}
-
-char	**split(char **argv, int l)
-{
-	char	**ptr;
-
-	ptr = ft_split(argv[l], 32);
-	return (ptr);
 }

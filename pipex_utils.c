@@ -6,7 +6,7 @@
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:00:10 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/05/25 17:51:17 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/05/26 16:02:44 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,16 @@
 	
 } */
 
-int	main(int argc, char **argv, char **envp)
+char	*path(char *arg, char **envp)
 {
 	int	i;
-	int	j;
+
 	char *env;
 	char **ptr;
 	char *path;
 
-	(void)argc;
 	i = 0;
-	j = 0;
-	printf("\nEnvp:\n");
-	if (access(argv[1], F_OK) != 0)
+	if (pcheck(arg) == 0)
 	{
 		while (envp[i])
 		{
@@ -45,19 +42,40 @@ int	main(int argc, char **argv, char **envp)
 			}
 			i++;
 		}
+		i = 0;
 		ptr = ft_split(env, ':');
-		while (ptr[j])
+		while (ptr[i])
 		{
-			path = ft_strjoin(ptr[j], "/");
-			path = ft_strjoin(path, argv[1]);
+			path = ft_strjoin(ptr[i], "/");
+			path = ft_strjoin(path, arg);
 			if (access(path, F_OK) == 0)
 			{
-				printf("%s\n", path);
+				//printf("%s\n", path);
+				return (path);
 				break ;
 			}
 			free(path);
-			j++;
+			i++;
 		}
 	}
-	return (0);
+	return (arg);
+}
+
+int	pcheck(char *ptr)
+{
+	int	i;
+	int	flag;
+
+	i = 0;
+	flag = 0;
+	while (ptr[i])
+	{
+		if (ptr[i] == '/')
+		{
+			flag = 1;
+			break ;
+		}
+		i++;
+	}
+	return (flag);
 }

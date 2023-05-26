@@ -12,11 +12,12 @@
 
 NAME = pipex
 
-SRCS = main ./libft/ft_split ./libft/ft_strncmp ./libft/ft_strjoin
+SRCS = pipex pipex_utils \
+	./libft/ft_bzero ./libft/ft_calloc ./libft/ft_split ./libft/ft_strjoin\
+	./libft/ft_strlcpy ./libft/ft_strlen ./libft/ft_strncmp ./libft/ft_substr \
+	./ftprintf/ft_numbers ./ftprintf/ft_printf ./ftprintf/ft_strings\
 
 LIB = $(NAME).a
-
-OLIB = libftprintf libft
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
@@ -26,7 +27,7 @@ RM = rm -fr
 all: $(NAME)
 
 $(NAME): lib
-		$(CC) $(CFLAGS) $(LIB) $(OLIB:=.a) -o $(NAME)
+		$(CC) $(CFLAGS) $(LIB) -o $(NAME)
 
 lib: $(SRCS:=.o)
 		ar rc $(LIB) $(SRCS:=.o)

@@ -12,73 +12,63 @@
 
 #include "pipex.h"
 
-/* void	cleaner(char **argv)
+/* t_fd	*init(t_fd	*fdesc)
 {
-	int	i;
-
-	i = 0;
-	while (argv[i])
-	{
-		free (argv[i]);
-		i++;
-	}
-	free (argv);
-} */
+	fdesc->path = NULL;
+	fdesc->infile = 0;
+	fdesc->outfile = 0;
+	return (fdesc);
+}
+ */
 
 int	main(int argc, char **argv, char **envp)
 {
+	int		infile_fd; //add to struct
+	int		outfile_fd; //add to struct
+
+	// initialise struct
+	if (argc != 5)
+	{
+		ft_printf("Invalid number of arguments");
+		exit(0);
+	}
+	parse(argv, &infile_fd, &outfile_fd);
+	forking(argv, infile_fd, outfile_fd, envp);
+	return (0);
+}
+
+void	forking(char **argv, int infile_fd, int outfile_fd, char **envp)
+{
+	char	**args;
 	int		fd[2];
 	int		id_f1;
 	int		id_f2;
-	char	*pcmd1;
-	char	*pcmd2;
-	char	**args1;
-	char	**args2;	
+	char	*path; //add to struct
 
-	// make sure arguments passed are okay
-	if (argc != 5)
-	{
-		printf("Wrong number of arguments.\n");
-	//	cleaner (argv);
-		return (0);
-	}
-	args1 = args(argv, 2);
-	args2 = args(argv, 3);
-	pcmd1 = path(args1[0], envp);
-	pcmd2 = path(args2[0], envp);
-	// create pipe
+	path = NULL; //temp
 	if (pipe(fd) == -1)
 	{
 		printf("Error opening pipe.\n");
-		return (0);
 	}
 	id_f1 = fork();
 	if (id_f1 == 0)
-	{
+	{	
 		close(fd[0]);
-		// close stdin fd
-		close (0);
-		// open in_file, it's fd becomes the new stdin
-		open (argv[1], O_RDONLY);
-		// closes stdout and dups the write fd of the pipe to it
+		args = ft_split(argv[2], 32);
+		path = check_path(args[0], envp);
+		dup2(infile_fd, 0);
 		dup2 (fd[1], 1);
-		// execute cmd1 on in_file
-		execve(pcmd1, args1, envp);
+		execve(path, args, envp);
 	}
-//	wait(0);
 	id_f2 = fork();
 	if (id_f2 == 0)
 	{
 		close(fd[1]);
-		// closes stdin and dups the read fd of the pipe to it
+		args = ft_split(argv[3], 32);
+		path = check_path(args[0], envp);
 		dup2 (fd[0], 0);
-		// close stdout fd
-		close (1);
-		// open out_file, it's fd becomes the new stdout
-		open (argv[4], O_WRONLY);
-		// execute cmd2 on in_file
-		execve(pcmd2, args2, envp);
+		dup2(outfile_fd, 1);
+		execve(path, args, envp);
 		exit(0);
 	}
-	return (0);
 }

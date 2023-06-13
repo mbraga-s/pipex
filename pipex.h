@@ -6,7 +6,7 @@
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:00:50 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/05/26 17:33:44 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/06/14 00:09:49 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+
+typedef struct s_fd
+{
+	int		infile;
+	int		outfile;
+	char	*path;	
+}				t_fd;
 
 char	**ft_split(char const *s, char c);
 
@@ -59,7 +66,11 @@ void	ft_upperputnbrhex(unsigned int c, int *len);
 
 char	**args(char **argv, int l);
 
-char	*path(char *arg, char **envp);
+char	*check_path(char *arg, char **envp);
+
+void	parse(char **argv, int *infile_fd, int *outfile_fd);
+
+void	forking(char **argv, int infile_fd, int outfile_fd, char **envp);
 
 int		pcheck(char *ptr);
 

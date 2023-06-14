@@ -6,7 +6,7 @@
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:00:10 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/06/14 00:17:36 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/06/14 23:23:53 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	**args(char **argv, int l)
 	ptr = ft_split(argv[l], 32);
 	return (ptr);
 }
-
 
 char	*check_path(char *arg, char **envp)
 {

@@ -23,35 +23,41 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	int		infile_fd; //add to struct
-	int		outfile_fd; //add to struct
+	int		infile_fd;
+	int		outfile_fd;
 
-	// initialise struct
 	if (argc != 5)
 	{
 		ft_printf("Invalid number of arguments");
 		exit(0);
 	}
 	parse(argv, &infile_fd, &outfile_fd);
-	forking(argv, infile_fd, outfile_fd, envp);
+	forking(argv, envp, infile_fd, outfile_fd);
 	return (0);
 }
 
-void	forking(char **argv, int infile_fd, int outfile_fd, char **envp)
+void	forking(char **argv, char **envp, int infile_fd, int outfile_fd)
 {
-	char	**args;
 	int		fd[2];
-	int		id_f1;
-	int		id_f2;
-	char	*path; //add to struct
 
-	path = NULL; //temp
 	if (pipe(fd) == -1)
 	{
 		printf("Error opening pipe.\n");
+		exit(0);
 	}
-	id_f1 = fork();
-	if (id_f1 == 0)
+	first_fork(argv, envp, fd, infile_fd);
+	wait(NULL);
+	second_fork(argv, envp, fd, outfile_fd);
+}
+
+void	first_fork(char **argv, char **envp, int *fd, int infile_fd)
+{
+	int		id;
+	char	*path;
+	char	**args;
+
+	id = fork();
+	if (id == 0)
 	{	
 		close(fd[0]);
 		args = ft_split(argv[2], 32);
@@ -60,8 +66,16 @@ void	forking(char **argv, int infile_fd, int outfile_fd, char **envp)
 		dup2 (fd[1], 1);
 		execve(path, args, envp);
 	}
-	id_f2 = fork();
-	if (id_f2 == 0)
+}
+
+void	second_fork(char **argv, char **envp, int *fd, int outfile_fd)
+{
+	int		id;
+	char	*path;
+	char	**args;
+
+	id = fork();
+	if (id == 0)
 	{
 		close(fd[1]);
 		args = ft_split(argv[3], 32);

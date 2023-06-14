@@ -6,7 +6,7 @@
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:00:50 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/06/14 00:09:49 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/06/14 23:20:40 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,11 @@ char	*check_path(char *arg, char **envp);
 
 void	parse(char **argv, int *infile_fd, int *outfile_fd);
 
-void	forking(char **argv, int infile_fd, int outfile_fd, char **envp);
+void	forking(char **argv, char **envp, int infile_fd, int outfile_fd);
+
+void	first_fork(char **argv, char **envp, int *fd, int infile_fd);
+
+void	second_fork(char **argv, char **envp, int *fd, int outfile_fd);
 
 int		pcheck(char *ptr);
 

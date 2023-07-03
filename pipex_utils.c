@@ -6,7 +6,7 @@
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:00:10 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/06/14 23:23:53 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:03:23 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	parse(char **argv, int *infile_fd, int *outfile_fd)
 		perror(argv[1]);
 		exit(0);
 	}
-	*outfile_fd = open(argv[4], O_CREAT | O_RDWR); // | O_TRUNC, 0644); find out why this first
+	*outfile_fd = open(argv[4], O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (*outfile_fd < 0)
 	{
 		perror(argv[4]);

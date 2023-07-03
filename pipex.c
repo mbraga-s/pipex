@@ -1,25 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pipex.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 16:27:13 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/05/23 16:27:13 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/07/03 10:00:20 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-/* t_fd	*init(t_fd	*fdesc)
-{
-	fdesc->path = NULL;
-	fdesc->infile = 0;
-	fdesc->outfile = 0;
-	return (fdesc);
-}
- */
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -29,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 5)
 	{
 		ft_printf("Invalid number of arguments");
-		exit(0);
+		exit(1);
 	}
 	parse(argv, &infile_fd, &outfile_fd);
 	forking(argv, envp, infile_fd, outfile_fd);
@@ -42,8 +33,8 @@ void	forking(char **argv, char **envp, int infile_fd, int outfile_fd)
 
 	if (pipe(fd) == -1)
 	{
-		printf("Error opening pipe.\n");
-		exit(0);
+		perror(NULL);
+		exit(1);
 	}
 	first_fork(argv, envp, fd, infile_fd);
 	wait(NULL);
@@ -57,6 +48,8 @@ void	first_fork(char **argv, char **envp, int *fd, int infile_fd)
 	char	**args;
 
 	id = fork();
+	if (id == -1)
+		perror(NULL);
 	if (id == 0)
 	{	
 		close(fd[0]);
@@ -65,6 +58,9 @@ void	first_fork(char **argv, char **envp, int *fd, int infile_fd)
 		dup2(infile_fd, 0);
 		dup2 (fd[1], 1);
 		execve(path, args, envp);
+		free(args);
+		free(path);
+		exit(1);
 	}
 }
 
@@ -75,6 +71,8 @@ void	second_fork(char **argv, char **envp, int *fd, int outfile_fd)
 	char	**args;
 
 	id = fork();
+	if (id == -1)
+		perror(NULL);
 	if (id == 0)
 	{
 		close(fd[1]);
@@ -83,6 +81,8 @@ void	second_fork(char **argv, char **envp, int *fd, int outfile_fd)
 		dup2 (fd[0], 0);
 		dup2(outfile_fd, 1);
 		execve(path, args, envp);
-		exit(0);
+		free(args);
+		free(path);
+		exit(1);
 	}
 }

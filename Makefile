@@ -20,7 +20,7 @@ SRCS = pipex pipex_utils \
 LIB = $(NAME).a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 
 RM = rm -fr
 

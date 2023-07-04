@@ -6,7 +6,7 @@
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:00:50 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/06/14 23:20:40 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:01:13 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**ft_split(char const *s, char c);
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 
 size_t	ft_strlen(const char *str);
 

@@ -6,7 +6,7 @@
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:00:10 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/07/03 11:03:23 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:14:30 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	parse(char **argv, int *infile_fd, int *outfile_fd)
 	if (*infile_fd < 0)
 	{
 		perror(argv[1]);
-		exit(0);
+		exit(1);
 	}
 	*outfile_fd = open(argv[4], O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (*outfile_fd < 0)
 	{
 		perror(argv[4]);
-		exit(0);
+		exit(1);
 	}
 }
 
@@ -44,7 +44,7 @@ char	*check_path(char *arg, char **envp)
 	char	*path;
 
 	i = 0;
-	if (pcheck(arg) == 0)
+	if (arg && pcheck(arg) == 0)
 	{
 		while (envp[i])
 		{
@@ -69,6 +69,8 @@ char	*check_path(char *arg, char **envp)
 			free(path);
 			i++;
 		}
+		ft_printf("command not found: %s\n", arg);
+		free(ptr);
 	}
 	return (arg);
 }

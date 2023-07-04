@@ -6,7 +6,7 @@
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:27:12 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/05/26 15:56:00 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/07/04 10:09:19 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_hex(long unsigned int c, int *len)
 
 	ptr = "0123456789abcdef";
 	if (c < 16)
-	{	
+	{
 		ft_putchar (ptr[c], len);
 	}
 	if (c >= 16)

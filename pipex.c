@@ -16,19 +16,22 @@ int	main(int argc, char **argv, char **envp)
 {
 	int		infile_fd;
 	int		outfile_fd;
+	int		status;
+	int		temp;
 
+	status = 0;
+	temp = 0;
 	if (argc == 5)
 	{
-		parse(argv, &infile_fd, &outfile_fd);
+		parse(argv, &infile_fd, &outfile_fd, &temp);
 		forking(argv, envp, infile_fd, outfile_fd);
-		wait(NULL);
+		waitpid(-1, &status, 0);
+		if (temp == 1)
+			unlink("temp");
+		return (status);
 	}
-	else
-	{
-		ft_printf("Invalid number of arguments");
-	//	exit(1);
-	}
-	return (0);
+	ft_printf("Invalid number of arguments");
+	return (1);
 }
 
 void	forking(char **argv, char **envp, int infile_fd, int outfile_fd)
@@ -63,7 +66,7 @@ void	first_fork(char **argv, char **envp, int *fd, int infile_fd)
 		dup2(infile_fd, 0);
 		dup2(fd[1], 1);
 		execve(path, args, envp);
-		while(args[i++])
+		while (args[i++])
 			free(args[i]);
 		free(args);
 		free(path);
@@ -90,7 +93,7 @@ void	second_fork(char **argv, char **envp, int *fd, int outfile_fd)
 		dup2(fd[0], 0);
 		dup2(outfile_fd, 1);
 		execve(path, args, envp);
-		while(args[i++])
+		while (args[i++])
 			free(args[i]);
 		free(args);
 		free(path);

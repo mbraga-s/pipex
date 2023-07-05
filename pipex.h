@@ -6,7 +6,7 @@
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:00:50 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/07/04 15:01:13 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:41:58 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ char	**ft_split(char const *s, char c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 char	*ft_strjoin(char *s1, char *s2);
+
+char	*ft_strtrim(char const *s1, char const *set);
+
+char	*ft_strchr(const char *s, int c);
 
 size_t	ft_strlen(const char *str);
 
@@ -68,7 +72,7 @@ char	**args(char **argv, int l);
 
 char	*check_path(char *arg, char **envp);
 
-void	parse(char **argv, int *infile_fd, int *outfile_fd);
+void	parse(char **argv, int *infile_fd, int *outfile_fd, int *flag);
 
 void	forking(char **argv, char **envp, int infile_fd, int outfile_fd);
 
@@ -77,5 +81,7 @@ void	first_fork(char **argv, char **envp, int *fd, int infile_fd);
 void	second_fork(char **argv, char **envp, int *fd, int outfile_fd);
 
 int		pcheck(char *ptr);
+
+char	*pathtest(char *env, char *arg);
 
 #endif

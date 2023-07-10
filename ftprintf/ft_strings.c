@@ -6,7 +6,7 @@
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:27:12 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/07/04 10:09:19 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/07/10 12:22:05 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putchar(int c, int *len)
 {
-	write (1, &c, 1);
+	write (2, &c, 1);
 	(*len)++;
 }
 

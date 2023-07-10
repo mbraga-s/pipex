@@ -67,15 +67,18 @@ void	first_fork(char **argv, char **envp, int *fd, int *file_fd)
 	char	*path;
 	char	**args;
 	int		i;
+	int		dups[2];
 
 	i = 0;
 	args = ft_split(argv[2], 32);
 	path = check_path(args[0], envp);
-	dupcheck(file_fd[0], 0);
-	dupcheck(fd[1], 1);
+	dups[0] = dupcheck(file_fd[0], 0);
+	dups[1] = dupcheck(fd[1], 1);
 	close_fd(fd);
 	close_fd(file_fd);
-	execve(path, args, envp);
+	if (path)
+		execve(path, args, envp);
+	close_fd(dups);
 	while (args[i])
 		free(args[i++]);
 	free(args);
@@ -88,15 +91,18 @@ void	second_fork(char **argv, char **envp, int *fd, int *file_fd)
 	char	*path;
 	char	**args;
 	int		i;
+	int		dups[2];
 
 	i = 0;
 	args = ft_split(argv[3], 32);
 	path = check_path(args[0], envp);
-	dupcheck(fd[0], 0);
-	dupcheck(file_fd[1], 1);
+	dups[0] = dupcheck(fd[0], 0);
+	dups[1] = dupcheck(file_fd[1], 1);
 	close_fd(fd);
 	close_fd(file_fd);
-	execve(path, args, envp);
+	if (path)
+		execve(path, args, envp);
+	close_fd(dups);
 	while (args[i])
 		free(args[i++]);
 	free(args);

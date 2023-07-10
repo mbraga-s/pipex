@@ -6,7 +6,7 @@
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:00:50 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/07/10 14:15:56 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:56:26 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,6 @@ char	*pathtest(char *env, char *arg);
 
 void	close_fd(int *fd);
 
-void	dupcheck(int file_fd, int fd);
+int		dupcheck(int file_fd, int fd);
 
 #endif

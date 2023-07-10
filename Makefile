@@ -12,9 +12,10 @@
 
 NAME = pipex
 
-SRCS = pipex pipex_utils \
+SRCS = pipex pipex_utils pipex_utils_2\
 	./libft/ft_bzero ./libft/ft_calloc ./libft/ft_split ./libft/ft_strjoin\
 	./libft/ft_strlcpy ./libft/ft_strlen ./libft/ft_strncmp ./libft/ft_substr \
+	./libft/ft_strdup ./libft/ft_memcpy \
 	./ftprintf/ft_numbers ./ftprintf/ft_printf ./ftprintf/ft_strings\
 
 LIB = $(NAME).a
@@ -26,10 +27,10 @@ RM = rm -fr
 
 all: $(NAME)
 
-$(NAME): lib
+$(NAME): $(LIB)
 		$(CC) $(CFLAGS) $(LIB) -o $(NAME)
 
-lib: $(SRCS:=.o)
+$(LIB): $(SRCS:=.o)
 		ar rc $(LIB) $(SRCS:=.o)
 
 clean:

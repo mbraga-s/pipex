@@ -6,7 +6,7 @@
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:00:10 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/07/10 12:21:46 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:25:38 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ char	*check_path(char *arg, char **envp)
 
 	i = 0;
 	env = NULL;
-	if (arg && pcheck(arg) == 0)
+	if (!arg)
+		ft_printf("command not found: %s\n", arg);
+	else if (pcheck(arg) == 0)
 	{
 		while (envp[i])
 		{
@@ -59,8 +61,9 @@ char	*check_path(char *arg, char **envp)
 		path = pathtest(env, arg);
 		if (path != NULL)
 			return (path);
+		free(path);
 	}
-	return (arg);
+	return (ft_strdup(arg));
 }
 
 char	*pathtest(char *env, char *arg)

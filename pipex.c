@@ -58,8 +58,8 @@ void	forking(char **argv, char **envp, int *file_fd, int temp)
 		perror(NULL);
 	if (id[1] == 0)
 		second_fork(argv, envp, fd, file_fd);
-	close(fd[0]);
-	close(fd[1]);
+	close_fd(fd);
+	close_fd(file_fd);
 }
 
 void	first_fork(char **argv, char **envp, int *fd, int *file_fd)
@@ -69,15 +69,15 @@ void	first_fork(char **argv, char **envp, int *fd, int *file_fd)
 	int		i;
 
 	i = 0;
-	close(fd[0]);
 	args = ft_split(argv[2], 32);
 	path = check_path(args[0], envp);
-	dup2(file_fd[0], 0);
-	dup2(fd[1], 1);
-	close(file_fd[1]);
+	dupcheck(file_fd[0], 0);
+	dupcheck(fd[1], 1);
+	close_fd(fd);
+	close_fd(file_fd);
 	execve(path, args, envp);
-	while (args[i++])
-		free(args[i]);
+	while (args[i])
+		free(args[i++]);
 	free(args);
 	free(path);
 	exit(1);
@@ -90,15 +90,15 @@ void	second_fork(char **argv, char **envp, int *fd, int *file_fd)
 	int		i;
 
 	i = 0;
-	close(fd[1]);
 	args = ft_split(argv[3], 32);
 	path = check_path(args[0], envp);
-	dup2(fd[0], 0);
-	dup2(file_fd[1], 1);
-	close(file_fd[0]);
+	dupcheck(fd[0], 0);
+	dupcheck(file_fd[1], 1);
+	close_fd(fd);
+	close_fd(file_fd);
 	execve(path, args, envp);
-	while (args[i++])
-		free(args[i]);
+	while (args[i])
+		free(args[i++]);
 	free(args);
 	free(path);
 	exit(1);

@@ -6,7 +6,7 @@
 /*   By: mbraga-s <mbraga-s@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:00:50 by mbraga-s          #+#    #+#             */
-/*   Updated: 2023/07/10 12:21:53 by mbraga-s         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:15:56 by mbraga-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,10 @@ void	ft_unsputnbr(unsigned int n, int *len);
 
 void	ft_upperputnbrhex(unsigned int c, int *len);
 
+char	*ft_strdup(const char *s);
+
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+
 char	**args(char **argv, int l);
 
 char	*check_path(char *arg, char **envp);
@@ -83,5 +87,9 @@ void	second_fork(char **argv, char **envp, int *fd, int *file_fd);
 int		pcheck(char *ptr);
 
 char	*pathtest(char *env, char *arg);
+
+void	close_fd(int *fd);
+
+void	dupcheck(int file_fd, int fd);
 
 #endif
